@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Wheel Drinking Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #2a9d8f;
+        }
+        .wheel-container {
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            position: relative;
+            border: 10px solid #264653;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                #e76f51 0 40deg,
+                #f4a261 40deg 80deg,
+                #2a9d8f 80deg 120deg,
+                #264653 120deg 160deg,
+                #e9c46a 160deg 200deg,
+                #e76f51 200deg 240deg,
+                #f4a261 240deg 280deg,
+                #2a9d8f 280deg 320deg,
+                #264653 320deg 360deg
+            );
+            transform: rotate(0deg);
+            transition: transform 3s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+        .pointer {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid #264653;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+        .action {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #e76f51;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #264653;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spin the Wheel Drinking Game</h1>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+    <div class="action" id="action">Ready to spin?</div>
+    <button id="spinButton">SPIN</button>
+
+    <script>
+        const actions = [
+            "Take 1 sip",
+            "Take 2 sips",
+            "Swap drinks",
+            "Ask a question",
+            "Truth or Dare",
+            "Take 3 sips",
+            "Give 2 sips",
+            "Skip your turn",
+            "Finish your drink",
+            "Take a shot",
+            "Choose someone to drink 2 sips",
+            "Sing a song or drink",
+            "Imitate an animal or drink",
+            "Share a secret or drink",
+            "Give a compliment to someone",
+            "Dance for 20 seconds or drink",
+            "Do 10 push-ups or drink",
+            "Tell a funny story or drink",
+            "Act out a scene from a movie",
+
+            "Name 3 types of beer or drink",
+            "Name 3 countries or drink",
+            "Swap seats with someone",
+            "Choose someone to finish their drink",
+            "Choose a drinking buddy for the next round",
+            "Do a group cheers and drink",
+            "Spin again and double the result",
+            "Give someone a drink from your drink",
+            "Tell a joke or drink. Drink if no-one laughs",
+            "Recite a tongue twister perfectly or drink",
+            "Imitate the last person to speak",
+            "Choose someone to drink half their drink",
+            "Invent a rule (e.g., no saying 'yes')",
+            "Play rock-paper-scissors with someone; loser drinks",
+            "Take a group photo",
+            "Say something nice about everyone in the group"
+        ];
+
+        const wheel = document.getElementById("wheel");
+        const actionDisplay = document.getElementById("action");
+        const spinButton = document.getElementById("spinButton");
+
+        let isSpinning = false;
+
+        spinButton.addEventListener("click", () => {
+            if (isSpinning) return;
+
+            isSpinning = true;
+            const randomDegree = Math.floor(Math.random() * 360) + 1440; // 4 full spins + random
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            
+            // Rotate the wheel
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            // Delay for animation, then show the result
+            setTimeout(() => {
+                actionDisplay.textContent = randomAction;
+                isSpinning = false;
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
